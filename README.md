@@ -2,7 +2,13 @@ Coverage: 60.5%
 
 # Inventory Management System by Haaris Moghal
 
-This is an Inventory Management System Application, which was built using Java and can be run with a Command-Line Interface. This application connects to a database which allows the user to use CRUD(Create,Read,Update and Delete) functions for Customers, Items and Orders. 
+This project features a comprehensive Inventory Management System that provides users with access to a robust database containing customers, items, and orders. It empowers users to effectively oversee and manage data within the system. Key functionalities include:
+
+Create: Add new customer, item, or order records to the database.
+Read: View all customers, items, and orders currently stored in the database.
+Update: Modify details of existing customers, items, or orders.
+Delete: Remove customers or items from the system, and delete entire orders or specific items within multi-item orders.
+The application is designed for ease of use, operating through a Command Line Interface (CLI) for seamless data management.
 ## Table of contents
 
 * [Prerequisites](https://github.com/QACTrainers/haarismoghalqa_assessment#Prerequisites)
