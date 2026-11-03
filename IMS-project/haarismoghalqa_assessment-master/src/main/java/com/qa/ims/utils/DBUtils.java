@@ -30,9 +30,12 @@ public class DBUtils {
 		} catch (Exception e) {
 			LOGGER.error(e);
 		}
-		this.dbUrl = dbProps.getProperty("db.url", "");
-		this.dbUser = dbProps.getProperty("db.user", "");
-		this.dbPassword = dbProps.getProperty("db.password", "");
+		// this.dbUrl = dbProps.getProperty("db.url", "");
+		// this.dbUser = dbProps.getProperty("db.user", "");
+		// this.dbPassword = dbProps.getProperty("db.password", "");
+		this.dbUrl = System.getenv().getOrDefault("DB_URL", dbProps.getProperty("db.url", ""));
+		this.dbUser = System.getenv().getOrDefault("DB_USER", dbProps.getProperty("db.user", ""));
+		this.dbPassword = System.getenv().getOrDefault("DB_PASSWORD", dbProps.getProperty("db.password", ""));
 		init("src/main/resources/sql-schema.sql", "src/main/resources/sql-data.sql");
 	}
 
