@@ -2,12 +2,12 @@ services:
   db:
     image: mysql:5.7
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
       MYSQL_DATABASE: ims
     volumes:
       - ims-data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p$$MYSQL_ROOT_PASSWORD"]
       interval: 5s
       timeout: 5s
       retries: 20
@@ -16,8 +16,8 @@ services:
     build: .
     environment:
       DB_URL: "jdbc:mysql://db:3306/ims?useLegacyDatetimeCode=false&serverTimezone=UTC"
-      DB_USER: root
-      DB_PASSWORD: root
+      DB_USER: ${DB_USER:-root}
+      DB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
     depends_on:
       db:
         condition: service_healthy
