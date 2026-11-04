@@ -101,7 +101,7 @@ public class OrderController implements CrudController<Order> {
 				order.setQuantity(quantity);// sets the quantity based on the users input
 				order.setCost(price);
 
-				LOGGER.info("The price for those items is: £" + price);
+				LOGGER.info("The price for those items is: Â£" + price);
 				LOGGER.info("Would you like to add another item to the order or return?");
 				LOGGER.info("(ADD/RETURN)");
 				String exit = utils.getString().toLowerCase();

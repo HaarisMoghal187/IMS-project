@@ -1,3 +1,4 @@
 .env
 target/
 errors.log
+*.jar

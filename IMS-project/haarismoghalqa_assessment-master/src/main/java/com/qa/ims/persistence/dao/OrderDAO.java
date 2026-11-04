@@ -251,7 +251,7 @@ public class OrderDAO implements Dao<Order> {
 				Order order = modelFromResultSet(resultSet);
 				Order orderlines = OrderLineFromResultSet(resultSet);
 				Items item = modelFromResultSetItems(resultSet);
-				LOGGER.info("Order " + "[orderId="+ orderlines.getOrderId()+ ", customerId=" + order.getCustomerId() + ", itemId=" + orderlines.getItemId() +", itemName="+ item.getItem_name() +", Price=£"+ item.getPrice()+", Quantity="+ orderlines.getQuantity() + "]");
+				LOGGER.info("Order " + "[orderId="+ orderlines.getOrderId()+ ", customerId=" + order.getCustomerId() + ", itemId=" + orderlines.getItemId() +", itemName="+ item.getItem_name() +", Price=Â£"+ item.getPrice()+", Quantity="+ orderlines.getQuantity() + "]");
 				Long itemId = orderlines.getItemId();
 				Long quantity = orderlines.getQuantity();
 				double total = items(itemId); // gets the price of the item
@@ -259,7 +259,7 @@ public class OrderDAO implements Dao<Order> {
 				cost = cost + total * quantity;				
 			}
 			LOGGER.info("");
-			LOGGER.info("The total cost: £" + cost);
+			LOGGER.info("The total cost: Â£" + cost);
 			LOGGER.info("");
 			return null;
 		} catch (Exception e) {

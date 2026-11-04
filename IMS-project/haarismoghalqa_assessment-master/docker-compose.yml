@@ -1,6 +1,7 @@
 services:
   db:
     image: mysql:5.7
+    platform: linux/amd64
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
       MYSQL_DATABASE: ims
