@@ -1,0 +1,39 @@
+pipeline {
+  agent any
+  environment {
+    IMAGE   = 'haarismoghal/ims'
+    APP_DIR = 'IMS-project/haarismoghalqa_assessment-master'
+  }
+  stages {
+    stage('Test') {
+      steps {
+        dir(APP_DIR) {
+          sh '''
+            docker rm -f ci-mysql || true
+            docker run -d --name ci-mysql -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=test -p 3306:3306 mysql:5.7
+            until docker exec ci-mysql mysqladmin ping -h 127.0.0.1 -uroot -proot --silent; do sleep 3; done
+            mvn -B clean test
+          '''
+        }
+      }
+      post { always { sh 'docker rm -f ci-mysql || true' } }
+    }
+    stage('Build image') {
+      steps {
+        dir(APP_DIR) { sh 'docker build -t $IMAGE:$BUILD_NUMBER .' }
+      }
+    }
+    stage('Push image') {
+      when { branch 'main' }
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DH_USER', passwordVariable: 'DH_PASS')]) {
+          sh '''
+            echo "$DH_PASS" | docker login -u "$DH_USER" --password-stdin
+            docker push $IMAGE:$BUILD_NUMBER
+            docker logout
+          '''
+        }
+      }
+    }
+  }
+}
